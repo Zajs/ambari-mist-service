@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>Mist</name>
+            <displayName>Hydrosphere Mist</displayName>
+            <comment>Mist</comment>
+            <version>0.10.0</version>
+            <osSpecifics>
+              <osSpecific>
+                <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
+                <packages>
+                   <package><name>mc</name></package>
+                </packages>
+              </osSpecific>
+            </osSpecifics>
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
+        </service>
+    </services>
+</metainfo>

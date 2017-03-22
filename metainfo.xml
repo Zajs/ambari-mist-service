@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>Mist</name>
+            <displayName>Hydrosphere Mist</displayName>
+            <comment>Hydrosphere Mist is a service for exposing analytical
+              jobs and machine learning models as web services.
+            </comment>
+            <version>0.0.1</version>
+            <requiredServices>
+                <service>SPARK</service>
+            </requiredServices>
+            <components>
+                <component>
+                    <name>MIST_MASTER</name>
+                    <displayName>Mist</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>10000</timeout>
+                    </commandScript>
+                </component>
+            </components>
+
+            <osSpecifics>
+                <osSpecific>
+                    <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
+                    <packages>
+                        <package>
+                            <name>liblapack-dev</name>
+                        </package>
+                        <package>
+                            <name>gfortran</name>
+                        </package>
+                        <package>
+                            <name>python-dev</name>
+                        </package>
+                        <package>
+                            <name>g++</name>
+                        </package>
+                        <package>
+                            <name>python-pip</name>
+                        </package>
+                        <package>
+                            <name>zeppelin</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+            </osSpecifics>
+
+            <requiredServices>
+                <service>SPARK</service>
+            </requiredServices>
+
+            <configuration-dependencies>
+                <config-type>mist-ambari-config</config-type>
+                <config-type>mist-config</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
+        </service>
+    </services>
+</metainfo>
