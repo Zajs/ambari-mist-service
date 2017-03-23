@@ -1,18 +1,18 @@
-#!/usr/bin/env python
-
-import sys, os, pwd, signal, time
+import sys
 from resource_management import *
-from subprocess import call
-
 
 class Master(Script):
   def install(self, env):
-    # Install packages listed in metainfo.xml
-    self.install_packages(env)
-    self.configure(env)
+    print 'Install the Sample Srv Master';
+  def stop(self, env):
+    print 'Stop the Sample Srv Master';
+  def start(self, env):
+    print 'Start the Sample Srv Master';
 
-    cmd = 'ps aux'
-    Execute(cmd)
+  def status(self, env):
+    print 'Status of the Sample Srv Master';
+  def configure(self, env):
+    print 'Configure the Sample Srv Master';
 
 if __name__ == "__main__":
   Master().execute()
