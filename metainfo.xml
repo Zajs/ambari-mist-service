@@ -12,7 +12,7 @@
             <components>
                 <component>
                     <name>MIST_MASTER</name>
-                    <displayName>Sample Mist Master</displayName>
+                    <displayName>MistMaster</displayName>
                     <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>
@@ -21,32 +21,9 @@
                         <timeout>600</timeout>
                     </commandScript>
                 </component>
-                <component>
-                    <name>MIST_SLAVE</name>
-                    <displayName>Sample Mist Slave</displayName>
-                    <category>SLAVE</category>
-                    <cardinality>1+</cardinality>
-                    <commandScript>
-                        <script>scripts/slave.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>600</timeout>
-                    </commandScript>
-                </component>
-                <component>
-                    <name>MIST_CLIENT</name>
-                    <displayName>Sample Mist Client</displayName>
-                    <category>CLIENT</category>
-                    <cardinality>1+</cardinality>
-                    <commandScript>
-                        <script>scripts/sample_client.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>600</timeout>
-                    </commandScript>
-                </component>
-            </components>
             <osSpecifics>
                 <osSpecific>
-                    <osFamily>any</osFamily>
+                    <osFamily>ubuntu14</osFamily>
                 </osSpecific>
             </osSpecifics>
         </service>
