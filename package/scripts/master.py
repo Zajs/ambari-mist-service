@@ -22,11 +22,11 @@ class Master(Script):
 
   def stop(self, env):
     print 'Stop the Sample Srv Master';
-    Execute ('cd /usr/share/mist/; SPARK_HOME=${SPARK_HOME} bin/mist stop')
+    Execute ('cd /usr/share/mist/; SPARK_HOME=/usr/hdp/current/spark-client bin/mist stop')
 
   def start(self, env):
     print 'Start the Sample Srv Master';
-    Execute ('cd /usr/share/mist/; SPARK_HOME=${SPARK_HOME} bin/mist start master')
+    Execute ('cd /usr/share/mist/; SPARK_HOME=/usr/hdp/current/spark-client bin/mist start master')
 
   def status(self, env):
     print 'Status of the Sample Srv Master';
