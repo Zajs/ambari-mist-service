@@ -24,7 +24,7 @@
             </components>
 
             <requiredServices>
-              <service>SPARK</service>
+              <service>SPARK2</service>
             </requiredServices>
 
             <osSpecifics>
@@ -32,7 +32,19 @@
                     <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
                     <packages>
                       <package>
-                          <name>python-dev</name>
+                          <name>python2.7-dev</name>
+                      </package>
+                      <package>
+                          <name>jq</name>
+                      </package>
+                      <package>
+                          <name>curl</name>
+                      </package>
+                      <package>
+                          <name>net-tools</name>
+                      </package>
+                      <package>
+                          <name>openjdk-8-jdk</name>
                       </package>
                     </packages>
                 </osSpecific>
@@ -41,6 +53,24 @@
                     <packages>
                       <package>
                           <name>python-devel</name>
+                      </package>
+                      <package>
+                          <name>jq</name>
+                      </package>
+                      <package>
+                          <name>curl</name>
+                      </package>
+                      <package>
+                          <name>net-tools</name>
+                      </package>
+                      <package>
+                          <name>centos-release-SCL</name>
+                      </package>
+                      <package>
+                          <name>python27</name>
+                      </package>
+                      <package>
+                          <name>java-1.8.0-openjdk</name>
                       </package>
                     </packages>
                 </osSpecific>
