@@ -20,13 +20,18 @@ class Master(Script):
     tar.extractall(path="/usr/share")
     tar.close()
 
+    print 'Create Mist service'
+    Execute ('cp /var/lib/ambari-server/resources/stacks/HDP/2.5/services/MIST/package/scripts/mist_service.sh /etc/init.d/mist')
+    Execute ('chmod +x /etc/init.d/mist')
+
+
   def stop(self, env):
     print 'Stop the Sample Srv Master';
-    Execute ('cd /usr/share/mist/; SPARK_HOME=/usr/hdp/current/spark-client bin/mist stop')
+    Execute ('service mist stop')
 
   def start(self, env):
     print 'Start the Sample Srv Master';
-    Execute ('cd /usr/share/mist/; SPARK_HOME=/usr/hdp/current/spark-client bin/mist start master')
+    Execute ('service mist start')
 
   def status(self, env):
     print 'Status of the Sample Srv Master';
