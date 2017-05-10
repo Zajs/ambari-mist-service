@@ -34,7 +34,11 @@ class Master(Script):
     Execute ('service mist start')
 
   def status(self, env):
-    print 'Status of the Sample Srv Master';
+    import status_params
+    env.set_params(status_params)
+
+    pid_file = glob.glob(status_params.mist_pid_dir + '/mist.pid')[0]
+    check_process_status(pid_file)
 
   def configure(self, env):
     print 'Configure the Sample Srv Master';
