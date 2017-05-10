@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-
 <!--
    Licensed to the Apache Software Foundation (ASF) under one or more
    contributor license agreements.  See the NOTICE file distributed with
@@ -17,33 +16,20 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
 <configuration>
 
- <property>
-    <name>mist_pid_dir</name>
-    <value>/var/run/</value>
-    <description>Dir containing process ID file</description>
-  </property>
 
-  <property>
-    <name>mist_user</name>
-    <value>mist</value>
-    <property-type>USER</property-type>
-    <description>User mist daemon runs as</description>
-  </property>
+    <!-- contents of actual default.conf -->
 
-  <property>
-    <name>mist_group</name>
-    <value>mist</value>
-    <property-type>GROUP</property-type>
-    <description>Mist group</description>
-  </property>
+    <property>
+        <name>mist.server.addr</name>
+        <value>0.0.0.0</value>
+        <description>Server address</description>
+    </property>
 
-  <property>
-    <name>mist_log_dir</name>
-    <value>/var/log/mist</value>
-    <description>Mist Log dir</description>
-  </property>
-
+    <property>
+        <name>mist.server.port</name>
+        <value>2004</value>
+        <description>Server port</description>
+    </property>
 </configuration>
