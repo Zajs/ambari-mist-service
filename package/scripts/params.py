@@ -12,7 +12,10 @@ service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 mist_dirname = 'mist'
 install_dir = '/usr/share'
 
+setup_view = config['configurations']['mist-ambari-config']['mist.setup.view']
+
 mist_host = config['configurations']['mist-ambari-config']['mist.host.publicname']
+mist_port = config['configurations']['mist-config']['mist.server.port']
 
 # params from mist-env
 mist_user = config['configurations']['mist-env']['mist_user']

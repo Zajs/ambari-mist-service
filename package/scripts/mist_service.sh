@@ -13,8 +13,8 @@ SCRIPT="/usr/share/mist/bin/$NAME"
 SCRIPT_AGRS=" start master"
 RUNAS="root"
 
-PIDFILE=/var/run/$NAME.pid
-LOGFILE=/var/log/$NAME.log
+PIDFILE=/var/run/$NAME/$NAME.pid
+LOGFILE=/var/log/$NAME/$NAME.log
 
 export SPARK_HOME=/usr/hdp/current/spark-client
 
