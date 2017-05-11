@@ -45,5 +45,170 @@
     <value>/var/log/mist</value>
     <description>Mist Log dir</description>
   </property>
+  <property>
+     <name>mist_default</name>
+     <description>This is the jinja template for Mist default.conf file</description>
+     <value>
+ # spark master
+ mist.context-defaults.spark-conf = {
+   spark.master = "local[*]"
+ }
+
+ mist.http.on = true
+ mist.http.host = "{{mist_host}}"
+ mist.http.port = {{mist_port}}
+ mist.http.router-config-path = "{{conf_dir}}/router-examples.conf"
+
+ mist.workers.runner = "local"
+
+ mist.mqtt.on = false
+ mist.recovery.on = false
+
+ mist.context-defaults.disposable = false
+     </value>
+   </property>
+   <property>
+      <name>mist_routers</name>
+      <description>This is the jinja template for Mist router-examples.conf file</description>
+      <value>
+  log-search = {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "SimpleTextSearch$"
+  namespace = "foo"
+}
+
+hive-test = {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "SimpleHiveContext$"
+  namespace = "foo"
+}
+
+streaming-log-search = {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "StreamingTextSearch$"
+  namespace = "streaming"
+}
+
+classification = {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "MLClassification$"
+  namespace = "regression"
+}
+
+simple-context = {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "SimpleContext$"
+  namespace = "foo"
+}
+
+simple-context-py = {
+  path = "{{mist_dir}}/examples-python/simple_context.py"
+  className = "SimpleContext"
+  namespace = "foo"
+}
+
+hive-job-py = {
+  path = "{{mist_dir}}/examples-python/simple_hive_context.py"
+  className = "SimpleHiveContext"
+  namespace = "foo"
+}
+
+simple-streaming-py = {
+  path = "{{mist_dir}}/examples-python/simple_streaming.py"
+  className = "SimpleStreaming"
+  namespace = "foo"
+}
+
+dtree {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "DTreeClassificationJob$"
+  namespace = "DTree"
+}
+
+regression {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "MLClassification$"
+  namespace = "Perceptron"
+}
+
+random_forest {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "RandomForestClassificationJob$"
+  namespace = "RandomForest"
+}
+
+binarizer {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "BinarizerJob$"
+  namespace = "Binarizer"
+}
+
+pca {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "PCAJob$"
+  namespace = "PCA"
+}
+
+minmaxscaler {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "MinMaxScalerJob$"
+  namespace = "MinMaxScaler"
+}
+
+standardscaler {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "StandardScalerJob$"
+  namespace = "StandardScaler"
+}
+
+maxabsscaler {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "MaxAbsScalerJob$"
+  namespace = "MaxAbsScaler"
+}
+
+stringindexer {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "StringIndexerJob$"
+  namespace = "StringIndexer"
+}
+
+onehotencoder {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "OneHotEncoderJob$"
+  namespace = "OneHotEncoder"
+}
+
+ngrams {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "NgramJob$"
+  namespace = "Ngram"
+}
+
+stop-words-remover {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "StopWordsRemoverJob$"
+  namespace = "StopWordsRemover"
+}
+
+normalizer {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "NormalizerJob$"
+  namespace = "Normalizer"
+}
+
+polynomial-expansion {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "PolynomialExpansionJob$"
+  namespace = "PolynomialExpansion"
+}
+
+dct {
+  path = "{{mist_dir}}/mist-examples-spark2.jar"
+  className = "DCTJob$"
+  namespace = "DCT"
+}
+      </value>
+    </property>
 
 </configuration>

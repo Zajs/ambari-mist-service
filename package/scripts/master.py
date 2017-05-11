@@ -14,6 +14,7 @@ class Master(Script):
     print 'Install the Mist Master';
     # Install packages listed in metainfo.xml
     self.install_packages(env)
+    self.configure(env)
 
     Execute('find ' + params.service_packagedir + ' -iname "*.sh" | xargs chmod +x')
 
@@ -38,7 +39,7 @@ class Master(Script):
 
     print 'Setup snapshot'
     Execute(format("{service_packagedir}/scripts/setup_snapshot.sh {mist_dir} "
-                   "{mist_host} {mist_port} {setup_view} {service_packagedir} "
+                   "{mist_addr} {mist_port} {setup_view} {service_packagedir} "
                    "{java64_home} >> {mist_log_file}"),
             user=params.mist_user)
 
@@ -49,11 +50,25 @@ class Master(Script):
             Execute(format("cp {mist_dir}/mist-view-1.0.0-SNAPSHOT.jar "
                            "/var/lib/ambari-server/resources/views"), ignore_failures=True)
 
+  def configure(self, env):
+    import params
+    import status_params
+    env.set_params(params)
+    env.set_params(status_params)
+
+    mist_default=InlineTemplate(status_params.mist_default_template_config)
+    File(format("{conf_dir}/default.conf"), content=mist_default, owner='root',group='root', mode=0644)
+
+    mist_routers=InlineTemplate(status_params.mist_routers_template_config)
+    File(format("{conf_dir}/router-examples.conf"), content=mist_routers, owner='root',group='root', mode=0644)
+
+
   def stop(self, env):
     print 'Stop the Mist Master';
     Execute ('service mist stop')
 
   def start(self, env):
+    self.configure(env)
     print 'Start the Mist Master';
     Execute ('service mist start')
 
@@ -63,9 +78,6 @@ class Master(Script):
 
     pid_file = glob.glob(status_params.mist_pid_dir + '/mist.pid')[0]
     check_process_status(pid_file)
-
-  def configure(self, env):
-    print 'Configure the Mist Master';
 
 if __name__ == "__main__":
   Master().execute()

@@ -22,7 +22,7 @@
     <!-- contents of actual default.conf -->
 
     <property>
-        <name>mist.server.addr</name>
+        <name>mist.server.host</name>
         <value>0.0.0.0</value>
         <description>Server address</description>
     </property>

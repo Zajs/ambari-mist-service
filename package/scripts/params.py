@@ -14,8 +14,9 @@ install_dir = '/usr/share'
 
 setup_view = config['configurations']['mist-ambari-config']['mist.setup.view']
 
-mist_host = config['configurations']['mist-ambari-config']['mist.host.publicname']
+mist_host = config['configurations']['mist-config']['mist.server.host']
 mist_port = config['configurations']['mist-config']['mist.server.port']
+mist_addr = config['configurations']['mist-ambari-config']['mist.host.publicname']
 
 # params from mist-env
 mist_user = config['configurations']['mist-env']['mist_user']
@@ -25,7 +26,7 @@ mist_pid_dir = config['configurations']['mist-env']['mist_pid_dir']
 mist_log_file = os.path.join(mist_log_dir, 'mist-setup.log')
 
 mist_dir = os.path.join(*[install_dir, mist_dirname])
-conf_dir = os.path.join(*[install_dir, mist_dirname, 'conf'])
+conf_dir = os.path.join(*[install_dir, mist_dirname, 'configs'])
 
 # detect configs
 master_configs = config['clusterHostInfo']
