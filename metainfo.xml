@@ -23,10 +23,6 @@
                 </component>
             </components>
 
-            <requiredServices>
-              <service>SPARK2</service>
-            </requiredServices>
-
             <osSpecifics>
                 <osSpecific>
                     <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
@@ -75,6 +71,16 @@
                     </packages>
                 </osSpecific>
             </osSpecifics>
+
+            <requiredServices>
+              <service>SPARK2</service>
+            </requiredServices>
+
+            <configuration-dependencies>
+                <config-type>mist-ambari-config</config-type>
+                <config-type>mist-config</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
         </service>
     </services>
 </metainfo>

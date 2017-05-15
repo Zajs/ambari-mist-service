@@ -18,10 +18,10 @@ SetupMist () {
     cd $INSTALL_DIR
         if [[ $SETUP_VIEW == "true" ]]
         then
-            cp $PACKAGE_DIR/scripts/mist-view-1.0.0-SNAPSHOT.jar .
-            $java64_home/bin/jar xf mist-view-1.0.0-SNAPSHOT.jar index.html
+            cp $PACKAGE_DIR/scripts/mist-ambari-view-0.0.1.jar .
+            $java64_home/bin/jar xf mist-ambari-view-0.0.1.jar index.html
             sed -i "s/HOST_NAME:HOST_PORT/$MIST_HOST:$MIST_PORT/g" index.html
-            $java64_home/bin/jar uf mist-view-1.0.0-SNAPSHOT.jar index.html
+            $java64_home/bin/jar uf mist-ambari-view-0.0.1.jar index.html
         else
             echo "Skipping setup of Ambari view"
         fi
