@@ -3,6 +3,7 @@
 import glob
 import os
 import pwd
+import grp
 import sys
 import tarfile
 import urllib
@@ -18,18 +19,17 @@ class Master(Script):
         env.set_params(params)
 
         Execute('find ' + params.service_packagedir + ' -iname "*.sh" | xargs chmod +x')
+        # create the log, pid, mits dirs
+        Directory([params.mist_pid_dir, params.mist_log_dir, params.mist_dir, params.conf_dir],
+                  owner=params.mist_user,
+                  group=params.mist_group
+                  )
 
         self.create_linux_user(params.mist_user, params.mist_group)
         print 'Install the Mist Master'
         # Install packages listed in metainfo.xml
         self.install_packages(env)
         self.configure(env)
-
-        # create the log, pid, mits dirs
-        Directory([params.mist_pid_dir, params.mist_log_dir, params.mist_dir],
-                  owner=params.mist_user,
-                  group=params.mist_group
-                  )
 
         File(params.mist_log_file,
              mode=0644,
@@ -85,9 +85,10 @@ class Master(Script):
 
         self.configure(env)
         print 'Start the Mist Master'
+        Execute('sudo bash -c "echo spark_home: ' + params.spark_home + ' >> ' + params.mist_log_file + '"')
 
-        Execute('/usr/share/mist/bin/mist start master >> ' + params.mist_log_file+' &', user=params.mist_user)
-        Execute('echo \$! > ' + params.mist_pid_file, user=params.mist_user)
+        Execute('export SPARK_HOME=' + params.spark_home, user=params.mist_user)
+        Execute('((/usr/share/mist/bin/mist start master >> ' + params.mist_log_file+') & echo $! > '+ params.mist_pid_file+')', user=params.mist_user)
         pidfile = glob.glob(params.mist_pid_file)[0]
         Execute('echo pid file is: ' + pidfile, user=params.mist_user)
         contents = open(pidfile).read()

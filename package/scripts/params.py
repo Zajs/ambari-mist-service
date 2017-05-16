@@ -17,6 +17,7 @@ setup_view = config['configurations']['mist-ambari-config']['mist.setup.view']
 mist_host = config['configurations']['mist-config']['mist.server.host']
 mist_port = config['configurations']['mist-config']['mist.server.port']
 mist_addr = config['configurations']['mist-ambari-config']['mist.host.publicname']
+spark_home = config['configurations']['mist-ambari-config']['spark.home']
 
 # params from mist-env
 mist_user = config['configurations']['mist-env']['mist_user']
