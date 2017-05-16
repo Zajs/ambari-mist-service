@@ -27,10 +27,6 @@ class Master(Script):
 
         self.create_linux_user(params.mist_user, params.mist_group)
         print 'Install the Mist Master'
-        # Install packages listed in metainfo.xml
-        self.install_packages(env)
-        self.configure(env)
-
         File(params.mist_log_file,
              mode=0644,
              owner=params.mist_group,
@@ -44,9 +40,12 @@ class Master(Script):
         tar = tarfile.open("/tmp/mist.tar.gz")
         tar.extractall(path="/tmp")
         tar.close()
-
-        Execute(format("cp -R /tmp/mist {mist_dir}"))
+        Execute(format("cp -R /tmp/mist/* {mist_dir}"))
         Execute(format("sudo chown -R {mist_user}:hadoop {mist_dir}"))
+
+        # Install packages listed in metainfo.xml
+        self.install_packages(env)
+        self.configure(env)
 
         print 'Setup view'
         Execute(format("{service_packagedir}/scripts/setup_view.sh {mist_dir} "
