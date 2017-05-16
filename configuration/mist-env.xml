@@ -211,4 +211,18 @@ dct {
       </value>
     </property>
 
+
+
+    <property>
+        <name>mist_ambari_start</name>
+        <description>Mist service starter</description>
+        <value>
+            #!/bin/bash
+            set -e
+            export SPARK_HOME={{spark_home}}
+
+            {{mist_dir}}/bin/mist start master >> {{mist_log_file}} &amp;
+            echo $! > {{mist_pid_file}}
+        </value>
+    </property>
 </configuration>

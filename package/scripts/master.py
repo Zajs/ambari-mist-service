@@ -38,23 +38,25 @@ class Master(Script):
              content=''
              )
         print 'Getting mist'
-        urllib.urlretrieve("http://35.157.13.60/mist.tar.gz", "/tmp/mist.tar.gz")
+        urllib.urlretrieve(params.distribution_url, "/tmp/mist.tar.gz")
 
         print 'Untar archive'
         tar = tarfile.open("/tmp/mist.tar.gz")
-        tar.extractall(path="/usr/share")
+        tar.extractall(path="/tmp")
         tar.close()
 
-        #print 'Create Mist service'
-        #Execute(format('cp {service_packagedir}/scripts/mist_service.sh /etc/init.d/mist'),
-        #        user=params.mist_user)
-        #Execute('chmod +x /etc/init.d/mist')
+        Execute(format("cp /tmp/mist/ {mist_dir}"))
+        Execute(format("sudo chown -R {mist_user}:hadoop {mist_dir}"))
 
         print 'Setup view'
         Execute(format("{service_packagedir}/scripts/setup_view.sh {mist_dir} "
                        "{mist_addr} {mist_port} {setup_view} {service_packagedir} "
                        "{java64_home} >> {mist_log_file}"),
                 user=params.mist_user)
+
+        start_script = InlineTemplate(params.mist_ambari_start)
+        File(format("{mist_dir}/bin/mist-daemon-start.sh"), content=start_script,
+             owner=params.mist_user, group=params.mist_group, mode=0777)
 
         if params.setup_view:
             if params.ambari_host == params.mist_internalhost and not os.path.exists(
@@ -77,18 +79,19 @@ class Master(Script):
 
     def stop(self, env):
         import params
+        import status_params
+        env.set_params(params)
+        env.set_params(status_params)
 
-        Execute('/usr/share/mist/bin/mist stop >> ' + params.mist_log_file, user=params.mist_user)
-        Execute('rm ' + params.mist_pid_file, user=params.mist_user)
+        Execute(format("{mist_dir}/bin/mist stop >> {mist_log_file}"), user=params.mist_user)
+        Execute(format("rm {mist_pid_file}"), user=params.mist_user)
     def start(self, env):
         import params
 
         self.configure(env)
         print 'Start the Mist Master'
-        Execute('sudo bash -c "echo spark_home: ' + params.spark_home + ' >> ' + params.mist_log_file + '"')
+        Execute(format("{mist_dir}/bin/mist-daemon-start.sh"), user=params.mist_user)
 
-        Execute('export SPARK_HOME=' + params.spark_home, user=params.mist_user)
-        Execute('((/usr/share/mist/bin/mist start master >> ' + params.mist_log_file+') & echo $! > '+ params.mist_pid_file+')', user=params.mist_user)
         pidfile = glob.glob(params.mist_pid_file)[0]
         Execute('echo pid file is: ' + pidfile, user=params.mist_user)
         contents = open(pidfile).read()
@@ -101,7 +104,6 @@ class Master(Script):
 
         pid_file = glob.glob(params.mist_pid_file)[0]
         check_process_status(pid_file)
-
     def create_linux_user(self, user, group):
         try:
             pwd.getpwnam(user)

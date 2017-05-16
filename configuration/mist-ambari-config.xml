@@ -25,6 +25,11 @@
         </description>
     </property>
     <property>
+        <name>mist.distribution</name>
+        <value>http://35.157.13.60/mist.tar.gz</value>
+        <description>Url to tar.gz archive with Mist</description>
+    </property>
+    <property>
         <name>spark.home</name>
         <value>/usr/hdp/current/spark-client/</value>
         <description>Spark home directory. Defaults to the Spark that comes with HDP (e.g. 1.3.1
