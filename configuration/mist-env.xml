@@ -28,14 +28,14 @@
 
   <property>
     <name>mist_user</name>
-    <value>root</value>
+    <value>mist</value>
     <property-type>USER</property-type>
     <description>User mist daemon runs as</description>
   </property>
 
   <property>
     <name>mist_group</name>
-    <value>root</value>
+    <value>mist</value>
     <property-type>GROUP</property-type>
     <description>Mist group</description>
   </property>
@@ -261,17 +261,13 @@ dct {
 
             start() {
             stop
-            echo 'Starting service...' >&amp;2
             local CMD="{{mist_dir}}/bin/mist start master &amp; >> \"$LOGFILE\" &amp; echo \$!"
             su -c "$CMD" {{mist_user}} > "$PIDFILE"
-            echo 'Service started' >&amp;2
             }
 
             stop() {
-            echo 'Stopping service...' > &amp;2
             {{mist_dir}}/bin/mist stop >> "$LOGFILE"
             rm -f "$PIDFILE"
-            echo 'Service stopped' > &amp;2
             }
 
             case "$1" in
