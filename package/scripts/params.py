@@ -20,8 +20,6 @@ mist_addr = config['configurations']['mist-ambari-config']['mist.host.publicname
 spark_home = config['configurations']['mist-ambari-config']['spark.home']
 
 # params from mist-env
-mist_ambari_start = config['configurations']['mist-env']['mist_ambari_start']
-mist_ambari_stop = config['configurations']['mist-env']['mist_ambari_stop']
 mist_ambari_service = config['configurations']['mist-env']['mist_ambari_service']
 
 mist_user = config['configurations']['mist-env']['mist_user']

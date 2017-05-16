@@ -53,13 +53,6 @@ class Master(Script):
                        "{java64_home} >> {mist_log_file}"),
                 user=params.mist_user)
 
-        start_script = InlineTemplate(params.mist_ambari_start)
-        File(format("{mist_dir}/bin/mist-daemon-start.sh"), content=start_script,
-             owner=params.mist_user, group=params.mist_group, mode=0777)
-        stop_script = InlineTemplate(params.mist_ambari_stop)
-        File(format("{mist_dir}/bin/mist-daemon-stop.sh"), content=stop_script,
-             owner=params.mist_user, group=params.mist_group, mode=0777)
-
         mist_ambari_service = InlineTemplate(params.mist_ambari_service)
         File(format("/etc/init.d/mist"), content=mist_ambari_service,
              owner=params.mist_user, group=params.mist_group, mode=0777)
