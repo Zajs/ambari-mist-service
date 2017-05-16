@@ -84,21 +84,13 @@ class Master(Script):
         File(format("{conf_dir}/router-examples.conf"), content=mist_routers, owner=params.mist_user, group=params.mist_group, mode=0644)
 
     def stop(self, env):
-        import params
-
-        self.configure(env)
-        Execute(format("{mist_dir}/bin/mist-daemon-stop.sh"), user=params.mist_user)
-    def start(self, env):
-        import params
-
         self.configure(env)
         print 'Start the Mist Master'
-        Execute(format("{mist_dir}/bin/mist-daemon-start.sh"), user=params.mist_user)
-
-        pidfile = glob.glob(params.mist_pid_file)[0]
-        Execute('echo pid file is: ' + pidfile, user=params.mist_user)
-        contents = open(pidfile).read()
-        Execute('echo pid is ' + contents, user=params.mist_user)
+        Execute ('service mist stop')
+    def start(self, env):
+        self.configure(env)
+        print 'Start the Mist Master'
+        Execute ('service mist start')
 
     def status(self, env):
         import status_params
