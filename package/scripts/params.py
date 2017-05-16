@@ -21,6 +21,7 @@ spark_home = config['configurations']['mist-ambari-config']['spark.home']
 
 # params from mist-env
 mist_ambari_start = config['configurations']['mist-env']['mist_ambari_start']
+mist_ambari_stop = config['configurations']['mist-env']['mist_ambari_stop']
 mist_user = config['configurations']['mist-env']['mist_user']
 mist_group = config['configurations']['mist-env']['mist_group']
 mist_log_dir = config['configurations']['mist-env']['mist_log_dir']
