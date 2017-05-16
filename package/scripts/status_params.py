@@ -18,11 +18,13 @@ limitations under the License.
 Ambari Agent
 
 """
+import os
 
 from resource_management import *
 
 config = Script.get_config()
 
 mist_pid_dir = config['configurations']['mist-env']['mist_pid_dir']
+mist_pid_file = os.path.join(mist_pid_dir, 'mist.pid')
 mist_default_template_config = config['configurations']['mist-env']['mist_default']
 mist_routers_template_config = config['configurations']['mist-env']['mist_routers']

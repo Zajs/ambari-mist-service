@@ -45,7 +45,7 @@ class Master(Script):
         tar.extractall(path="/tmp")
         tar.close()
 
-        Execute(format("cp /tmp/mist/ {mist_dir}"))
+        Execute(format("cp -R /tmp/mist {mist_dir}"))
         Execute(format("sudo chown -R {mist_user}:hadoop {mist_dir}"))
 
         print 'Setup view'
@@ -79,9 +79,6 @@ class Master(Script):
 
     def stop(self, env):
         import params
-        import status_params
-        env.set_params(params)
-        env.set_params(status_params)
 
         Execute(format("{mist_dir}/bin/mist stop >> {mist_log_file}"), user=params.mist_user)
         Execute(format("rm {mist_pid_file}"), user=params.mist_user)
@@ -98,11 +95,10 @@ class Master(Script):
         Execute('echo pid is ' + contents, user=params.mist_user)
 
     def status(self, env):
-        import params
         import status_params
         env.set_params(status_params)
 
-        pid_file = glob.glob(params.mist_pid_file)[0]
+        pid_file = glob.glob(status_params.mist_pid_file)[0]
         check_process_status(pid_file)
     def create_linux_user(self, user, group):
         try:
