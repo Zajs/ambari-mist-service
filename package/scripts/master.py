@@ -60,6 +60,10 @@ class Master(Script):
         File(format("{mist_dir}/bin/mist-daemon-stop.sh"), content=stop_script,
              owner=params.mist_user, group=params.mist_group, mode=0777)
 
+        mist_ambari_service = InlineTemplate(params.mist_ambari_service)
+        File(format("/etc/init.d/mist"), content=mist_ambari_service,
+             owner=params.mist_user, group=params.mist_group, mode=0777)
+
         if params.setup_view:
             if params.ambari_host == params.mist_internalhost and not os.path.exists(
                     '/var/lib/ambari-server/resources/views/mist-ambari-view-0.0.1.jar'):
@@ -84,7 +88,6 @@ class Master(Script):
 
         self.configure(env)
         Execute(format("{mist_dir}/bin/mist-daemon-stop.sh"), user=params.mist_user)
-        Execute(format("rm {mist_pid_file}"), user=params.mist_user)
     def start(self, env):
         import params
 

@@ -237,4 +237,57 @@ dct {
             rm {{mist_pid_file}}
         </value>
     </property>
+
+    <property>
+        <name>mist_ambari_service</name>
+        <description>Mist service starter</description>
+        <value>
+            #!/bin/sh
+            ### BEGIN INIT INFO
+            # Provides:          Mist
+            # Required-Start:    $local_fs $network $named $time $syslog
+            # Required-Stop:     $local_fs $network $named $time $syslog
+            # Default-Start:     2 3 4 5
+            # Default-Stop:      0 1 6
+            # Description:       Hydrosphere Mist
+            ### END INIT INFO
+
+            PIDFILE={{mist_pid_file}}
+            LOGFILE={{mist_log_file}}
+
+            export SPARK_HOME={{spark_home}}
+
+            set -e
+
+            start() {
+            stop
+            echo 'Starting service...' >&amp;2
+            local CMD="{{mist_dir}}/bin/mist start master &amp; >> \"$LOGFILE\" &amp; echo \$!"
+            su -c "$CMD" {{mist_user}} > "$PIDFILE"
+            echo 'Service started' >&amp;2
+            }
+
+            stop() {
+            echo 'Stopping service...' > &amp;2
+            {{mist_dir}}/bin/mist stop >> "$LOGFILE"
+            rm -f "$PIDFILE"
+            echo 'Service stopped' > &amp;2
+            }
+
+            case "$1" in
+            start)
+            start
+            ;;
+            stop)
+            stop
+            ;;
+            restart)
+            stop
+            start
+            ;;
+            *)
+            echo "Usage: $0 {start|stop|restart}"
+            esac
+        </value>
+    </property>
 </configuration>
