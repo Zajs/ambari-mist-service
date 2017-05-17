@@ -48,8 +48,7 @@
   <property>
      <name>mist_default</name>
      <description>This is the jinja template for Mist default.conf file</description>
-     <value>
- # spark master
+     <value># spark master
  mist.context-defaults.spark-conf = {
    spark.master = "local[*]"
  }
@@ -70,8 +69,7 @@
    <property>
       <name>mist_routers</name>
       <description>This is the jinja template for Mist router-examples.conf file</description>
-      <value>
-  log-search = {
+      <value>log-search = {
   path = "{{mist_dir}}/mist-examples-spark2.jar"
   className = "SimpleTextSearch$"
   namespace = "foo"
@@ -214,49 +212,47 @@ dct {
     <property>
         <name>mist_ambari_service</name>
         <description>Mist service starter</description>
-        <value>
-            #!/bin/sh
-            ### BEGIN INIT INFO
-            # Provides:          Mist
-            # Required-Start:    $local_fs $network $named $time $syslog
-            # Required-Stop:     $local_fs $network $named $time $syslog
-            # Default-Start:     2 3 4 5
-            # Default-Stop:      0 1 6
-            # Description:       Hydrosphere Mist
-            ### END INIT INFO
+<value>#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          Mist
+# Required-Start:    $local_fs $network $named $time $syslog
+# Required-Stop:     $local_fs $network $named $time $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Hydrosphere Mist
+### END INIT INFO
 
-            PIDFILE={{mist_pid_file}}
-            LOGFILE={{mist_log_file}}
+PIDFILE={{mist_pid_file}}
+LOGFILE={{mist_log_file}}
 
-            export SPARK_HOME={{spark_home}}
+export SPARK_HOME={{spark_home}}
 
-            set -e
+set -e
 
-            start() {
-            stop
-            local CMD="{{mist_dir}}/bin/mist start master &amp; >> \"$LOGFILE\" &amp; echo \$!"
-            su -c "$CMD" {{mist_user}} > "$PIDFILE"
-            }
+start() {
+    cd {{mist_dir}}
+    local CMD="./bin/mist start master >> \"$LOGFILE\" &amp; echo \$!"
+    su -c "$CMD" {{mist_user}} > "$PIDFILE"
+}
 
-            stop() {
-            {{mist_dir}}/bin/mist stop >> "$LOGFILE"
-            rm -f "$PIDFILE"
-            }
+stop() {
+{{mist_dir}}/bin/mist stop >> "$LOGFILE"
+rm -f "$PIDFILE"
+}
 
-            case "$1" in
-            start)
-            start
-            ;;
-            stop)
-            stop
-            ;;
-            restart)
-            stop
-            start
-            ;;
-            *)
-            echo "Usage: $0 {start|stop|restart}"
-            esac
-        </value>
+case "$1" in
+start)
+start
+;;
+stop)
+stop
+;;
+restart)
+stop
+start
+;;
+*)
+echo "Usage: $0 {start|stop|restart}"
+esac</value>
     </property>
 </configuration>
