@@ -34,13 +34,15 @@ class Master(Script):
              content=''
              )
         print 'Getting mist'
-        urllib.urlretrieve(params.distribution_url, "/tmp/mist.tar.gz")
+
+
+        urllib.urlretrieve(format("http://repo.hydrosphere.io/static/mist-{mist_version}-{spark_version}.tar.gz"), "/tmp/mist.tar.gz")
 
         print 'Untar archive'
         tar = tarfile.open("/tmp/mist.tar.gz")
         tar.extractall(path="/tmp")
         tar.close()
-        Execute(format("cp -R /tmp/mist/* {mist_dir}"))
+        Execute(format("cp -R /tmp/mist-{mist_version}-{spark_version}/* {mist_dir}"))
         Execute(format("sudo chown -R {mist_user}:hadoop {mist_dir}"))
 
         # Install packages listed in metainfo.xml

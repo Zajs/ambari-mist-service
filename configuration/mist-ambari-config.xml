@@ -25,9 +25,14 @@
         </description>
     </property>
     <property>
-        <name>mist.distribution</name>
-        <value>http://repo.hydrosphere.io/static/mist-0.12.0-2.1.1.tar.gz</value>
-        <description>Url to tar.gz archive with Mist</description>
+        <name>mist.version</name>
+        <value>0.12.0</value>
+        <description>Mist version</description>
+    </property>
+    <property>
+        <name>spark.version</name>
+        <value>2.1.1</value>
+        <description>Spark version</description>
     </property>
     <property>
         <name>spark.home</name>

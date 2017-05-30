@@ -48,7 +48,7 @@
 
     <property>
         <name>mist_java_args</name>
-        <value></value>
+        <value>-Xmx512m</value>
         <description>Default java args</description>
     </property>
     <property>
