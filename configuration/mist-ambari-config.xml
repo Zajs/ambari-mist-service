@@ -26,12 +26,12 @@
     </property>
     <property>
         <name>mist.version</name>
-        <value>0.12.0</value>
+        <value>0.12.1</value>
         <description>Mist version</description>
     </property>
     <property>
         <name>spark.version</name>
-        <value>2.1.1</value>
+        <value>1.6.2</value>
         <description>Spark version</description>
     </property>
     <property>
